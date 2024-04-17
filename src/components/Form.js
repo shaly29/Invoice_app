@@ -24,21 +24,28 @@ const [isEditing,setIsEditing] = useState(false)
 const handleSubmit = (e) => {
   e.preventDefault()
 
-const newItems = {
-  id: uuidv4(),
-  description,
-  quantity,
-  price,
-  amount
-}
-setDescription("")
-setQuantity("")
-setPrice("")
-setAmount("")
-setList([...list,newItems])
-setIsEditing(false)
+if (!description || !quantity || !price) {
+alert("Please fill in all inputs")
+} else {
 
+  const newItems = {
+    id: uuidv4(),
+    description,
+    quantity,
+    price,
+    amount
+  }
+  setDescription("")
+  setQuantity("")
+  setPrice("")
+  setAmount("")
+  setList([...list,newItems])
+  setIsEditing(false)
+  
+  }
 }
+
+
 
 useEffect(() => {
   const calculateAmount = (amount) => {
@@ -48,16 +55,21 @@ useEffect(() => {
 },[quantity,setQuantity,price,setPrice])
 
 // calculate total amount
+useEffect(() => {
+  let rows = document.querySelectorAll(".amount")
+  let sum = 0
+  
+  for(let i=0; i < rows.length; i++){
+  if(rows[i].className === "amount"){
+    sum += isNaN(rows[i].innerHTML) ? 0 : parseInt(rows[i].innerHTML)
+    setTotal(sum)
+  }
+  }
 
-let rows = document.querySelectorAll(".amount")
-let sum = 0
+},  )
 
-for(let i=0; i < rows.length; i++){
-if(rows[i].className === "amount"){
-  sum += isNaN(rows[i].innerHTML) ? 0 : parseInt(rows[i].innerHTML)
-  setTotal(sum)
-}
-}
+
+
 
 
 // edit
@@ -169,7 +181,7 @@ const deleteRow = (id) => setList(list.filter((row) => row.id !== id))
           ))}
           </table>
           <div>
-            <h2 className='text-gray-800'>{total}</h2>
+            <h2 className='flex items-end justify-end text-gray-800 font-bold text-4xl'>Kshs. {total.toLocaleString()}</h2>
           </div>
    </>
   )

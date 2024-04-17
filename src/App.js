@@ -31,7 +31,7 @@ const [quantity,setQuantity] = useState("")
 const [price,setPrice] = useState("")
 const [amount,setAmount] = useState("")
 const [list,setList] = useState([])
-
+const [total,setTotal] =useState(0)
 
 
   const handlePrint = () => {
@@ -45,12 +45,15 @@ const [list,setList] = useState([])
         <Details name={name} address={address} />
         <ClientDetails clientName={clientName} clientAddress={clientAddress} />
         <Date invoiceNumber={invoiceNumber} invoiceDate={invoiceDate} dueDate={dueDate} />
-        <Table description={description}
+        <Table 
+        description={description}
         quantity={quantity}
         price={price}
         amount={amount}
         list={list}
         setList={setList}
+        total={total}
+        setTotal={setTotal}
         />
         <Notes notes={notes} />
         <Footer name={name}
@@ -260,7 +263,8 @@ const [list,setList] = useState([])
             setAmount={setAmount}
             list={list}
             setList={setList}
-
+total={total}
+setTotal={setTotal}
               />
             </article>
 

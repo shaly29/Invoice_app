@@ -1,5 +1,10 @@
-import React, { useEffect } from 'react'
+import React, {useState, useEffect } from 'react'
 import {v4 as uuidv4} from "uuid"
+import { MdDeleteOutline } from "react-icons/md";
+import { CiEdit } from "react-icons/ci";
+
+
+
 const Form = ({description,
   setDescription,
   quantity,
@@ -9,8 +14,12 @@ const Form = ({description,
   amount,
   setAmount,
 list,
-setList
+setList,
+total,
+setTotal
 }) => {
+
+const [isEditing,setIsEditing] = useState(false)
 
 const handleSubmit = (e) => {
   e.preventDefault()
@@ -18,18 +27,17 @@ const handleSubmit = (e) => {
 const newItems = {
   id: uuidv4(),
   description,
-
   quantity,
   price,
   amount
 }
 setDescription("")
-
 setQuantity("")
 setPrice("")
 setAmount("")
 setList([...list,newItems])
-console.log(list)
+setIsEditing(false)
+
 }
 
 useEffect(() => {
@@ -37,9 +45,36 @@ useEffect(() => {
     setAmount(quantity* price)
   }
   calculateAmount(amount)
-},[quantity,setQuantity,price,setPrice]
+},[quantity,setQuantity,price,setPrice])
 
-)
+// calculate total amount
+
+let rows = document.querySelectorAll(".amount")
+let sum = 0
+
+for(let i=0; i < rows.length; i++){
+if(rows[i].className === "amount"){
+  sum += isNaN(rows[i].innerHTML) ? 0 : parseInt(rows[i].innerHTML)
+  setTotal(sum)
+}
+}
+
+
+// edit
+const editRow = (id) => {
+  const editingRow = list.find((row) => row.id === id)
+  setList(list.filter((row) => row.id !== id))
+  setIsEditing(true)
+  setDescription(editingRow.description)
+setQuantity(editingRow.quantity)
+setPrice(editingRow.price)
+
+}
+
+
+// dele
+const deleteRow = (id) => setList(list.filter((row) => row.id !== id))
+
 
 
   return (
@@ -91,7 +126,11 @@ useEffect(() => {
         </div>
 
         <button type='submit'  className='bg-blue-500 py-2 px-8 rounded shadow border-2 border-blue-500 hover:bg-transparent
-         hover:text-blue-500'> Add Item</button>
+         hover:text-blue-500'> 
+         
+         {isEditing ? "Editing row item" : "Add Table Item"}
+       
+         </button>
         </form>
 
         <table width="100%" className='mb-10'>
@@ -116,13 +155,22 @@ useEffect(() => {
   <td>{description}</td>
   <td>{quantity}  </td>
   <td>{price}  </td>
-  <td>{amount}  </td>
+  <td className='amount'>{amount}  </td>
+  <td>
+    <button onClick={() => deleteRow(id)}><MdDeleteOutline className='text-red-500 font-bold text-xl' /> </button>
+    </td>
+    <td>
+    <button onClick={() => editRow(id)}><CiEdit  className='text-green-500 font-bold text-xl' /> </button>
+    </td>
   </tr>
 </tbody>
 
            </React.Fragment>
           ))}
           </table>
+          <div>
+            <h2 className='text-gray-800'>{total}</h2>
+          </div>
    </>
   )
 }

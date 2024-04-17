@@ -1,9 +1,50 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import {v4 as uuidv4} from "uuid"
+const Form = ({description,
+  setDescription,
+  quantity,
+  setQuantity,
+  price,
+  setPrice,
+  amount,
+  setAmount,
+list,
+setList
+}) => {
 
-const Form = ({description, setDescription,quantity,setQuantity,price,setPrice,amount,setAmount}) => {
+const handleSubmit = (e) => {
+  e.preventDefault()
+
+const newItems = {
+  id: uuidv4(),
+  description,
+
+  quantity,
+  price,
+  amount
+}
+setDescription("")
+
+setQuantity("")
+setPrice("")
+setAmount("")
+setList([...list,newItems])
+console.log(list)
+}
+
+useEffect(() => {
+  const calculateAmount = (amount) => {
+    setAmount(quantity* price)
+  }
+  calculateAmount(amount)
+},[quantity,setQuantity,price,setPrice]
+
+)
+
+
   return (
    <>
-   
+   <form onSubmit={handleSubmit}>
    <div className="flex flex-col md:mt-16">
           <label htmlFor="description">Item description</label>
           <input
@@ -44,21 +85,44 @@ const Form = ({description, setDescription,quantity,setQuantity,price,setPrice,a
           </div>
           <div className="flex flex-col">
             <label htmlFor="amount">Amount</label>
-            <input
-              type="text"
-              name="amount"
-              id="amount"
-              placeholder="amount"
-              maxLength={33}
-              value={amount}
-              onChange={(e) => setAmount(e.target.value)}
-            />
+           <p> {amount} </p>
           </div>
 
-
-
-
         </div>
+
+        <button type='submit'  className='bg-blue-500 py-2 px-8 rounded shadow border-2 border-blue-500 hover:bg-transparent
+         hover:text-blue-500'> Add Item</button>
+        </form>
+
+        <table width="100%" className='mb-10'>
+       
+<thead>
+ <tr className='bg-gray-100 p-1'>
+  <td className='font-bold'>Description</td>
+  <td className='font-bold'>Quantity</td>
+  <td className='font-bold'>Price</td>
+  <td className='font-bold'>Amount</td>
+ </tr>
+</thead>
+{list.map(({id,description,quantity,price,amount}) =>(
+          
+        
+          <React.Fragment key={id}>
+          
+
+<tbody>
+  <tr>
+   
+  <td>{description}</td>
+  <td>{quantity}  </td>
+  <td>{price}  </td>
+  <td>{amount}  </td>
+  </tr>
+</tbody>
+
+           </React.Fragment>
+          ))}
+          </table>
    </>
   )
 }

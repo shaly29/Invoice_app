@@ -30,7 +30,7 @@ const [description, setDescription] = useState("")
 const [quantity,setQuantity] = useState("")
 const [price,setPrice] = useState("")
 const [amount,setAmount] = useState("")
-
+const [list,setList] = useState([])
 
 
 
@@ -45,7 +45,13 @@ const [amount,setAmount] = useState("")
         <Details name={name} address={address} />
         <ClientDetails clientName={clientName} clientAddress={clientAddress} />
         <Date invoiceNumber={invoiceNumber} invoiceDate={invoiceDate} dueDate={dueDate} />
-        <Table description={description}/>
+        <Table description={description}
+        quantity={quantity}
+        price={price}
+        amount={amount}
+        list={list}
+        setList={setList}
+        />
         <Notes notes={notes} />
         <Footer name={name}
           email={email}
@@ -59,7 +65,7 @@ const [amount,setAmount] = useState("")
 
         <button onClick={() => setShowInvoice(false)}
           className='bg-blue-500 py-2 px-8 rounded shadow border-2 border-blue-500 hover:bg-transparent
- hover:text-blue-500' > Edit Information</button>
+            hover:text-blue-500' > Edit Information</button>
       </div>) : (
         <>
           <div className='flex flex-col justify-center items-center'>
@@ -242,31 +248,21 @@ const [amount,setAmount] = useState("")
             </div>
             </article>
             
-<article>
-  <Form
-  description={description}
-  setDescription={setDescription}
-  quantity={quantity}
-setQuantity={setQuantity}
-price={price}
-setPrice={setPrice}
-amount={amount}
-setAmount={setAmount}
+            <article>
+              <Form
+              description={description}
+              setDescription={setDescription}
+              quantity={quantity}
+            setQuantity={setQuantity}
+            price={price}
+            setPrice={setPrice}
+            amount={amount}
+            setAmount={setAmount}
+            list={list}
+            setList={setList}
 
-
-  />
-</article>
-
-
-
-
-
-
-
-
-
-
-
+              />
+            </article>
 
             <div className='flex flex-col'>
               <label htmlFor='notes'>Notes</label>

@@ -47,9 +47,9 @@ body {
   @apply bg-teal-50 overflow-x-hidden;
 }
 
-.max-width {
+/* .max-width {
   @apply px-5 xl:max-w-7xl xl:mx-auto 2xl:px-0;
-}
+} */
 
 .slant {
   border-right: 100vw solid #99f6e4;

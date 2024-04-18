@@ -28,7 +28,7 @@ const Table = ({ list,total }) => {
 
       <div>
         <h2 className="flex items-end justify-end text-gray-800 text-4xl font-bold">
-          Kshs. {total.toLocaleString()}
+         Rs. {total.toLocaleString()}
         </h2>
       </div>
     </>

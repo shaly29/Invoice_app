@@ -1,6 +1,6 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 
 @import url("https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@400;700&display=swap");
 
@@ -10,21 +10,40 @@
   --yellow-card: #f5af19;
 }
 
-::selection,
+/* Styling text selection (highlighting) */
+::selection {
+  background-color: #319795; /* Equivalent to bg-teal-500 in Tailwind (bg-teal-500 = #319795) */
+  color: #fff; /* Equivalent to text-white in Tailwind (text-white = #fff) */
+}
+
+/* Styling text selection (highlighting) for Mozilla Firefox */
 ::-moz-selection {
-  @apply bg-teal-500 text-white;
+  background-color: #319795;
+  color: #fff;
 }
 
+/* Styling scrollbar for WebKit (Chrome, Safari) */
 ::-webkit-scrollbar {
-  @apply w-3;
+  width: 9px; /* Equivalent to w-3 in Tailwind (w-3 = 0.75rem) */
 }
 
+/* Styling scrollbar track for WebKit */
 ::-webkit-scrollbar-track {
-  @apply shadow rounded-lg bg-teal-100;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1); /* Equivalent to shadow and bg-teal-100 in Tailwind */
+  background-color: #E2F4F0; /* Equivalent to bg-teal-100 in Tailwind (bg-teal-100 = #E2F4F0) */
+  border-radius: 8px; /* Equivalent to rounded-lg in Tailwind */
 }
 
+/* Styling scrollbar thumb for WebKit */
 ::-webkit-scrollbar-thumb {
-  @apply bg-teal-400 rounded-lg hover:bg-teal-500 transition-all duration-200;
+  background-color: #4FD1C5; /* Equivalent to bg-teal-400 in Tailwind (bg-teal-400 = #4FD1C5) */
+  border-radius: 8px; /* Equivalent to rounded-lg in Tailwind */
+}
+
+/* Hover effect on scrollbar thumb for WebKit */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #319795; /* Equivalent to hover:bg-teal-500 in Tailwind (hover:bg-teal-500 = #319795) */
+  transition: all 0.2s ease; /* Equivalent to transition-all duration-200 in Tailwind */
 }
 
 .beta__tag {
@@ -38,37 +57,46 @@
   text-align: center;
 }
 
+
+
+/* Resetting default margin and applying font styles */
 body {
   margin: 0;
   font-family: "Reem Kufi", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-size: 18px;
-  @apply bg-teal-50 overflow-x-hidden;
+  background-color: #E6F4F1; /* Equivalent to bg-teal-50 in Tailwind (bg-teal-50 = #E6F4F1) */
+  overflow-x: hidden; /* Equivalent to overflow-x-hidden in Tailwind (overflow-x-hidden) */
 }
 
-/* .max-width {
-  @apply px-5 xl:max-w-7xl xl:mx-auto 2xl:px-0;
-} */
+
+
 
 .slant {
   border-right: 100vw solid #99f6e4;
   border-top: 150px solid transparent;
 }
 
+
 .slant-left {
-  border-right: 100vw solid;
-  @apply border-r-teal-200;
-  border-bottom: 150px solid transparent;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-right: 100vw solid transparent; /* Full-width solid border on the right */
+  border-bottom: 150px solid transparent; /* Transparent bottom border */
+  border-right-color: #6B7280; /* Teal-200 color equivalent (#6B7280) */
 }
 
 .slant-footer {
-  border-left: 100vw solid;
-  @apply border-l-teal-900;
-  border-top: 150px solid transparent;
-  @apply absolute;
+  position: absolute;
   top: -150px;
+  border-left: 100vw solid teal; /* Adjust color as needed */
+  border-top: 150px solid transparent;
 }
+
 
 h1,
 h2,
@@ -110,7 +138,7 @@ button {
   margin: 0.5rem 0.2rem;
 }
 
-.navbar {
+/* .navbar {
   position: absolute;
   left: 20px;
   top: -100%;
@@ -123,7 +151,7 @@ button {
   width: calc(100vw - 45px);
   transition: top 0.4s ease-in-out;
   @apply shadow shadow-teal-500;
-}
+} */
 
 .navbar.open {
   top: 80px;

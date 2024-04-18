@@ -44,7 +44,8 @@ function App() {
       <main className='p-5 m-5 lg:max-w-3xl lg:mx-auto bg-white rounded shadow md:max-w-xl md:mx-auto xl:max-w-4xl'>
       <ReactToPrint
               trigger={() =>
-                <button>Print/Download </button>}
+                <button className='bg-blue-300 py-2 px-8 rounded shadow border-2 border-blue-500 hover:bg-transparent
+                hover:text-blue-500'>Print/Download </button>}
               content={() => componentRef.current}
             />
         {showInvoice ? (
